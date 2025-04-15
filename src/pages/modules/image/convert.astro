@@ -1,0 +1,12 @@
+---
+import { ConvertImage } from "@/pages/modules/image/_components/convert";
+import HeaderLayout from "@/layouts/header-layout.astro";
+---
+
+<HeaderLayout
+  title="Convert Images"
+  description="Convert images between different formats."
+  icon="RefreshCcw"
+>
+  <ConvertImage client:load />
+</HeaderLayout>
