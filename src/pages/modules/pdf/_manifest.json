@@ -1,0 +1,6 @@
+{
+  "name": "PDF",
+  "description": "Various PDF tools",
+  "icon": "FileText",
+  "url": "/modules/pdf"
+}

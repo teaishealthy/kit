@@ -1,11 +1,63 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/layout.astro";
+import { GET, type Modules } from "./modules.json";
+import type { Ok } from "@/lib/utils";
+import LucideIcon from "@/components/lucide-icon.astro";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const modules = (await GET(Astro).then((res) => res.json())) as Ok<Modules>;
+
+import { PocketKnife } from "lucide-react";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Kit" description="my personal swiss army knife">
+  <main>
+    <h1 class="flex flex-row items-center gap-1">
+      <PocketKnife /> kit
+    </h1>
+    <p>my personal swiss army knife</p>
+    <br />
+    <h2>Modules</h2>
+
+    <div class="flex flex-col items-center justify-center mt-2">
+      <div class="modules">
+        {
+          modules.result.modules.map((module) => (
+            <a href={module.url}>
+              <Card key={module.name} className="card w-full h-full">
+                <CardHeader>
+                  <CardTitle>
+                    <span class="flex items-center gap-1">
+                      <LucideIcon name={module.icon} />
+                      {module.name}
+                    </span>
+                  </CardTitle>
+                  <CardDescription>{module.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </a>
+          ))
+        }
+      </div>
+      <h2>linkshed</h2>
+      <span>collection of links (favorites)</span>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  @reference "tailwindcss";
+
+  .card {
+    @apply cursor-pointer transition-all duration-200 ease-in-out hover:scale-102;
+  }
+
+  .modules {
+    @apply container grid grid-cols-[repeat(2, 17vh)] gap-2 grid-rows-[repeat(2, 17vh)];
+  }
+</style>

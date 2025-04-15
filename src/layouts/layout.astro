@@ -1,0 +1,54 @@
+---
+import { Button } from "@/components/ui/button";
+import "@/styles/global.css";
+
+const { title } = Astro.props;
+
+import { Home } from "@lucide/astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/pocket-knife.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <script>
+      const backButton =
+        document.querySelector<HTMLButtonElement>("#backButton")!;
+      backButton.onclick = () => {
+        window.location.href = "/";
+      };
+      document.body.appendChild(backButton);
+    </script>
+    <Button
+      className="absolute top-4 left-4 text-white p-2 rounded"
+      id="backButton"
+    >
+      <Home />
+    </Button>
+    <slot />
+  </body>
+</html>
+
+<style>
+  @reference "tailwindcss";
+  html,
+  body {
+    @apply h-screen w-screen;
+  }
+
+  :global(h1) {
+    @apply text-3xl font-bold;
+  }
+
+  :global(h2) {
+    @apply text-xl font-bold;
+  }
+
+  :global(main) {
+    @apply flex flex-col items-center justify-center h-full w-full;
+  }
+</style>
