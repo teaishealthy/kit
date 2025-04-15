@@ -1,69 +1,26 @@
 ---
 import Layout from "@/layouts/layout.astro";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { FileText, Split } from "lucide-react";
-import { Merge } from "@lucide/astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Features from "@/components/features.astro";
 ---
 
-<Layout title="Kit">
-  <main>
-    <h1 class="flex flex-row items-center gap-1">
-      <FileText /> PDF
-    </h1>
-    <p>PDF tools and utilities</p>
-    <br />
-
-    <div class="flex flex-col items-center justify-center mt-2">
-      <div class="modules">
-        <a href="/modules/pdf/merge">
-          <Card className="card w-full h-full">
-            <CardHeader>
-              <CardTitle>
-                <span class="flex items-center gap-1">
-                  <Merge />
-                  Merge PDFs
-                </span>
-              </CardTitle>
-              <CardDescription>
-                Merge multiple PDF files into one.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </a>
-        <a href="/modules/pdf/split">
-          <Card className="card w-full h-full">
-            <CardHeader>
-              <CardTitle>
-                <span class="flex items-center gap-1">
-                  <Split />
-                  Split PDFs
-                </span>
-              </CardTitle>
-              <CardDescription>
-                Split a PDF file into multiple files.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </a>
-      </div>
-    </div>
-  </main>
+<Layout title="PDF">
+  <Features
+    featureList={[
+      {
+        name: "Merge PDFs",
+        description: "Merge multiple PDF files into one.",
+        icon: "Merge",
+        link: "/modules/pdf/merge",
+      },
+      {
+        name: "Split PDFs",
+        description: "Split a PDF file into multiple files.",
+        icon: "Split",
+        link: "/modules/pdf/split",
+      },
+    ]}
+    icon="FileText"
+    title="PDF"
+    description="PDF tools and utilities"
+  />
 </Layout>
-
-<style>
-  @reference "tailwindcss";
-  .card {
-    @apply cursor-pointer transition-all duration-200 ease-in-out hover:scale-102;
-  }
-  .modules {
-    @apply container grid grid-cols-[repeat(2, 17vh)] gap-2 grid-rows-[repeat(2, 17vh)];
-  }
-</style>
