@@ -1,4 +1,3 @@
-import { Merge } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -6,13 +5,7 @@ import JSZip from "jszip";
 
 export function MergePDF() {
   return (
-    <main>
-      <h1 className="flex flex-row items-center gap-1">
-        <Merge /> Merge PDFs
-      </h1>
-      <p>Merge multiple PDF files into one.</p>
-      <br />
-
+    <>
       <div className="flex flex-col items-start justify-center mt-2">
         <Label htmlFor="pdffile">PDF files</Label>
         <Input
@@ -71,6 +64,6 @@ export function MergePDF() {
       >
         Merge!
       </Button>
-    </main>
+    </>
   );
 }

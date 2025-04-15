@@ -1,0 +1,25 @@
+---
+import type { icons } from "@lucide/astro";
+import Layout from "@/layouts/layout.astro";
+import LucideIcon from "@/components/lucide-icon.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  icon: keyof typeof icons;
+}
+
+const { title, description, icon } = Astro.props as Props;
+---
+
+<Layout title={title}>
+  <main>
+    <h1 class="flex flex-row items-center gap-1">
+      <LucideIcon name={icon as any} />
+      {title}
+    </h1>
+    <p>{description}</p>
+    <br />
+    <slot />
+  </main>
+</Layout>

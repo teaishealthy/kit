@@ -1,18 +1,12 @@
 ---
-import Layout from "@/layouts/layout.astro";
 import { MergePDF } from "@/components/pdf/merge";
+import HeaderLayout from "@/layouts/header-layout.astro";
 ---
 
-<Layout title="Merge PDFs" description="my personal swiss army knife">
+<HeaderLayout
+  title="Merge PDFs"
+  description="Merge multiple PDF files into one."
+  icon="Merge"
+>
   <MergePDF client:load />
-</Layout>
-
-<style>
-  @reference "tailwindcss";
-  .card {
-    @apply cursor-pointer transition-all duration-200 ease-in-out hover:scale-102;
-  }
-  .modules {
-    @apply container grid grid-cols-[repeat(2, 17vh)] gap-2 grid-rows-[repeat(2, 17vh)];
-  }
-</style>
+</HeaderLayout>

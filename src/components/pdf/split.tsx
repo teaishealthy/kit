@@ -1,17 +1,10 @@
-import { Split, Merge } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 export function SplitPDF() {
   return (
-    <main>
-      <h1 className="flex flex-row items-center gap-1">
-        <Split /> Split PDF
-      </h1>
-      <p>Split a PDF file into multiple files.</p>
-      <br />
-
+    <>
       <div className="flex flex-col items-start justify-center mt-2">
         <Label htmlFor="pdffile">PDF File</Label>
         <Input id="pdffile" type="file" accept=".pdf" className="w-full" />
@@ -55,6 +48,6 @@ export function SplitPDF() {
       >
         Split!
       </Button>
-    </main>
+    </>
   );
 }

@@ -1,11 +1,15 @@
 ---
-import Layout from "@/layouts/layout.astro";
 import { SplitPDF } from "@/components/pdf/split";
+import HeaderLayout from "@/layouts/header-layout.astro";
 ---
 
-<Layout title="Split PDF">
+<HeaderLayout
+  title="Split PDFs"
+  description="Split a PDF file into multiple files."
+  icon="Split"
+>
   <SplitPDF client:load />
-</Layout>
+</HeaderLayout>
 
 <style>
   @reference "tailwindcss";
