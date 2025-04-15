@@ -1,1 +1,26 @@
-tbd
+---
+import Layout from "@/layouts/layout.astro";
+import Features from "@/components/features.astro";
+---
+
+<Layout title="Image">
+  <Features
+    featureList={[
+      {
+        name: "Image Resizer",
+        description: "Resize images to specific dimensions.",
+        icon: "ImageUpscale",
+        link: "/modules/image/resize",
+      },
+      {
+        name: "Image Converter",
+        description: "Convert images between different formats.",
+        icon: "RefreshCcw",
+        link: "/modules/image/convert",
+      },
+    ]}
+    icon="Image"
+    title="Image"
+    description="Image manipulation and conversion"
+  />
+</Layout>
