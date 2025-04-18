@@ -1,39 +1,24 @@
 import type { APIRoute } from "astro";
-import { Recipe } from "muhammara";
-import fs from "fs/promises";
-import path from "path";
-import os from "os";
 import JSZip from "jszip";
+import { PDFDocument } from "pdf-lib";
 
 export const prerender = false;
 
-async function tempDir(): Promise<string> {
-  const randomDirName = Math.random().toString(36).substring(2, 15);
-  // create a temporary directory to store the split files
-  return await fs.mkdtemp(path.join(os.tmpdir(), randomDirName));
-}
-
 async function splitPDF(buf: Blob): Promise<Buffer[]> {
-  const tempDirectory = await tempDir();
-  try {
-    const randomName = Math.random().toString(36).substring(2, 15);
-    const inputFile = path.join(tempDirectory, `${randomName}.pdf`);
-    await fs.writeFile(inputFile, await buf.bytes());
-    const pdf = new Recipe(inputFile);
-    pdf.split(tempDirectory, "split-");
-    const files = await fs.readdir(tempDirectory);
-    const buffers: Buffer[] = [];
-    for (const file of files) {
-      const filePath = path.join(tempDirectory, file);
-      const buffer = await fs.readFile(filePath);
-      buffers.push(buffer);
-      await fs.unlink(filePath); // delete the file after reading
-    }
+  const pdfBytes = await buf.arrayBuffer();
+  const pdfDoc = await PDFDocument.load(pdfBytes);
+  const totalPages = pdfDoc.getPageCount();
+  const buffers: Buffer[] = [];
 
-    return buffers;
-  } finally {
-    await fs.rm(tempDirectory, { recursive: true, force: true }); // delete the temporary directory
+  for (let i = 0; i < totalPages; i++) {
+    const newPdfDoc = await PDFDocument.create();
+    const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [i]);
+    newPdfDoc.addPage(copiedPage);
+    const pdfBytes = await newPdfDoc.save();
+    buffers.push(Buffer.from(pdfBytes));
   }
+
+  return buffers;
 }
 
 export const POST: APIRoute = async ({ request }) => {
