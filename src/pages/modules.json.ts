@@ -12,7 +12,7 @@ export interface Modules {
   modules: Module[];
 }
 
-export async function GET({ }) {
+export async function GET({}) {
   const modules = import.meta.glob("./modules/**/_manifest.json", {
     eager: true,
   });

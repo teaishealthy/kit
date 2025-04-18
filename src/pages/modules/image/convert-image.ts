@@ -12,12 +12,19 @@ async function tempDir(): Promise<string> {
   return await fs.mkdtemp(path.join(os.tmpdir(), randomDirName));
 }
 
-async function convertImage(blob: Blob, format: string): Promise<[Blob, OutputInfo]> {
+async function convertImage(
+  blob: Blob,
+  format: string,
+): Promise<[Blob, OutputInfo]> {
   const buffer = await blob.arrayBuffer();
   const tempDirectory = await tempDir();
   try {
-    const outInfo = await sharp(Buffer.from(buffer)).toFile(path.join(tempDirectory, `temp.${format}`));
-    const convertedBuffer = await fs.readFile(path.join(tempDirectory, `temp.${format}`));
+    const outInfo = await sharp(Buffer.from(buffer)).toFile(
+      path.join(tempDirectory, `temp.${format}`),
+    );
+    const convertedBuffer = await fs.readFile(
+      path.join(tempDirectory, `temp.${format}`),
+    );
 
     return [new Blob([convertedBuffer], { type: `image/${format}` }), outInfo];
   } finally {
