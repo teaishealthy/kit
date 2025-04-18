@@ -17,8 +17,12 @@ async function mergePDFs(buf: Blob): Promise<Buffer> {
   const pdfDoc = await PDFDocument.create();
 
   for (const pdfFile of pdfFiles) {
-    const toAddDoc = await PDFDocument.load(pdfFile);
-    pdfDoc.copyPages(toAddDoc, toAddDoc.getPageIndices());
+    const blob = await zipContent.file(pdfFile)!.async("arraybuffer");
+    const toAddDoc = await PDFDocument.load(blob);
+    const pages = await pdfDoc.copyPages(toAddDoc, toAddDoc.getPageIndices());
+    for (const page of pages) {
+      pdfDoc.addPage(page);
+    }
   }
   const mergedPDFBuffer = await pdfDoc.save();
   return Buffer.from(mergedPDFBuffer);
