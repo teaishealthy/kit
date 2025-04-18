@@ -1,5 +1,4 @@
 import type { APIRoute } from "astro";
-import { Recipe } from "muhammara";
 import fs from "fs/promises";
 import path from "path";
 import os from "os";
